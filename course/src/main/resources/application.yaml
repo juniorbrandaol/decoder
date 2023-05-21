@@ -1,11 +1,11 @@
 server:
-  port: 8087
+  port: 8082
 
 spring:
   application:
-    name: authuser
+    name: course
   datasource:
-    url: jdbc:postgresql://localhost:5432/ead-authuser
+    url: jdbc:postgresql://localhost:5432/ead-course
     username: postgres
     password: 1224
   jpa:
@@ -15,6 +15,3 @@ spring:
       jdbc: lob.non-contextual-creation:true
     properties:
       hibernate: show_sql:true
-
-
-

@@ -11,7 +11,8 @@ public class SpecificationTemplate {
      @And({
              @Spec(path = "userType", spec = Equal.class),
              @Spec(path = "userStatus", spec = Equal.class),
-             @Spec(path = "email", spec = Like.class)
+             @Spec(path = "email", spec = Like.class),
+             @Spec(path = "phoneNumber", spec = Like.class)
      })
      public interface UserSpec extends Specification<UserModel>{}
 }

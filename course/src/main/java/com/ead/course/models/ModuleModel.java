@@ -2,11 +2,13 @@ package com.ead.course.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -26,7 +28,12 @@ public class ModuleModel implements Serializable {
     @Column(nullable = false)
     private LocalDateTime criationDate;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//defique que será um acesso apenas de escrita, será ocultado de visualização
     @ManyToOne(optional = false)
-    private CourseModel courseModel;
+    private CourseModel course;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "module")
+    private Set<LessonModel> lessons;
 
 }

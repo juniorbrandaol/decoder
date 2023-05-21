@@ -4,6 +4,7 @@ import com.ead.course.enuns.CourseLevel;
 import com.ead.course.enuns.CourseStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -42,6 +43,7 @@ public class CourseModel  implements Serializable {
     private CourseLevel courseLevel;
     @Column(nullable = false)
     private UUID UserInstructor;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//defique que será um acesso apenas de escrita, será ocultado de visualização
     @OneToMany(mappedBy = "course")
     private Set<ModuleModel> modules;
 

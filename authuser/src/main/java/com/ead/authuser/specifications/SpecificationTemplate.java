@@ -1,4 +1,4 @@
-package com.ead.authuser.spacifications;
+package com.ead.authuser.specifications;
 
 import com.ead.authuser.models.UserModel;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;

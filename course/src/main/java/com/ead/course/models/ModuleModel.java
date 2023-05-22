@@ -26,9 +26,9 @@ public class ModuleModel implements Serializable {
     private String title;
     @Column(nullable = false,length = 250)
     private String description;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyy HH:mm:ss")
     @Column(nullable = false)
-    private LocalDateTime criationDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyy HH:mm:ss")
+    private LocalDateTime creationDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//defique que será um acesso apenas de escrita, será ocultado de visualização
     @ManyToOne(optional = false,fetch = FetchType.LAZY)

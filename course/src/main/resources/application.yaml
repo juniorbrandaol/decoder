@@ -9,11 +9,10 @@ spring:
     username: postgres
     password: 1224
   jpa:
-    show-sql: true
+    hibernate:
+      ddl-auto:update
+      dialect:org.hibernate.dialect.PostgreSQLDialect
+      jdbc:lob:non_contextual_creation=true
     properties:
       hibernate: show_sql:true
-      jdbc:
-        lob:non_contextual_creation=true
-    hibernate:
-      ddl-auto: update
-      dialect: org.hibernate.dialect.PostgreSQLDialect
+

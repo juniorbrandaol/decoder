@@ -13,6 +13,8 @@ spring:
       ddl-auto:update
       dialect:org.hibernate.dialect.PostgreSQLDialect
       jdbc:lob:non_contextual_creation=true
+    show_sql: true
     properties:
-      hibernate: show_sql:true
+      hibernate: format_sql=true
+    open-in-view: false
 

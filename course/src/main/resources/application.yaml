@@ -17,4 +17,10 @@ spring:
     properties:
       hibernate: format_sql=true
     open-in-view: false
+    generate-ddl: true
+
+    #colorir mensagens no terminal windows
+  output:
+   ansi:
+    enabled: ALWAYS
 

@@ -1,10 +1,7 @@
-package com.ead.course.dtos;
+package com.ead.authuser.dtos;
 
-import com.ead.course.enuns.CourseLevel;
-import com.ead.course.enuns.CourseStatus;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import com.ead.authuser.enuns.CourseLevel;
+import com.ead.authuser.enuns.CourseStatus;
 import lombok.Data;
 import java.util.UUID;
 
@@ -12,14 +9,11 @@ import java.util.UUID;
 public class CourseDto {
 
     private UUID courseId;
-    @NotBlank
     private String name;
-    @NotBlank
     private String description;
     private String imageUrl;
-    @NotNull
     private CourseStatus courseStatus;
-    @NotNull
     private CourseLevel courseLevel;
     private UUID UserInstructor;
+
 }

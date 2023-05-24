@@ -1,7 +1,7 @@
 
 server:
  port: 8082
- 
+
 spring:
  application:
   name: notification
@@ -18,3 +18,7 @@ spring:
   properties:
    hibernate: format_sql=true
   open-in-view: false
+  #colorir mensagens no terminal windows
+ output:
+  ansi:
+   enabled: ALWAYS

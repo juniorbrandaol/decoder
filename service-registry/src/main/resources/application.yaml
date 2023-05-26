@@ -1,0 +1,18 @@
+#porta do eureka server
+server:
+  port: 8761
+
+#PARA A APLICAÇÃO STARTAR APENAS COMO SERVIDOR
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+spring:
+  application:
+    name: ead-service-registry
+
+  #colorir mensagens no terminal windows
+  output:
+    ansi:
+      enabled: ALWAYS

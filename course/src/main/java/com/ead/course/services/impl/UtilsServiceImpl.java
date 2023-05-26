@@ -1,7 +1,6 @@
 package com.ead.course.services.impl;
 
 import com.ead.course.services.UtilsService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

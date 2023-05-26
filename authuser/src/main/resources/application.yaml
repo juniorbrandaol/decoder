@@ -1,9 +1,16 @@
 server:
   port: 8087
 
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8761/eureka'
+  instance:
+    hostname: localhost
+
 spring:
   application:
-    name: authuser
+    name: ead-authuser-service
   datasource:
     url: jdbc:postgresql://localhost:5432/ead-authuser
     username: postgres
@@ -20,10 +27,17 @@ spring:
     show-sql: true
     generate-ddl: true
 
+
+
 #colorir mensagens no terminal windows
   output:
     ansi:
       enabled: ALWAYS
+
+ead:
+  api:
+    url:
+      course: 'http://ead-course-service'
 
 logging:
   level:
@@ -33,7 +47,3 @@ logging:
     web: DEBUG
     org.hibernate: INFO
 
-ead:
-  api:
-    url:
-     course: 'http://localhost:8082'

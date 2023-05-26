@@ -1,9 +1,18 @@
 server:
   port: 8082
 
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8761/eureka'
+  instance:
+    hostname: localhost
+
+
+
 spring:
   application:
-    name: course
+    name: ead-course-service
   datasource:
     url: jdbc:postgresql://localhost:5432/ead-course
     username: postgres
@@ -24,6 +33,11 @@ spring:
    ansi:
     enabled: ALWAYS
 
+ead:
+  api:
+    url:
+      authuser: 'http://ead-authuser-service'
+
 logging:
   level:
     com.ead: TRACE
@@ -32,9 +46,6 @@ logging:
     web: DEBUG
     org.hibernate: INFO
 
-ead:
-  api:
-    url:
-      authuser: 'http://localhost:8087'
+
 
 

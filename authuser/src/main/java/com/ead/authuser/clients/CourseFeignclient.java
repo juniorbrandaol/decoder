@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.UUID;
 
 @Component
-@FeignClient(name="course",url = "localhost:8082",path = "/courses")
+@FeignClient(name="ead-course-service",url = "localhost:8082",path = "/courses")
 public interface CourseFeignclient {
 
     @GetMapping("?userId={userId}")

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @Component
-@FeignClient(name="authuser",url = "localhost:8087",path = "/users")
+@FeignClient(name="ead-authuser-service",url = "localhost:8087",path = "/users")
 public interface AuthUserFeignClient {
 
     @GetMapping("?courseId={courseId}")

@@ -21,5 +21,6 @@ public class CourseDto {
     private CourseStatus courseStatus;
     @NotNull
     private CourseLevel courseLevel;
+    @NotNull
     private UUID UserInstructor;
 }

@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Component
 @FeignClient(name="course",url = "localhost:8082",path = "/courses")
-public interface UserFeignclient {
+public interface CourseFeignclient {
 
     @GetMapping("?userId={userId}")
     @ResponseStatus(HttpStatus.OK)

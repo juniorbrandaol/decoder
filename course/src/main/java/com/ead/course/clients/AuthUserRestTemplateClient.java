@@ -1,10 +1,12 @@
 package com.ead.course.clients;
 
+import com.ead.course.dtos.CourseUserDto;
 import com.ead.course.dtos.ResponsePageDto;
 import com.ead.course.dtos.UserDto;
 import com.ead.course.services.UtilsService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,35 +22,19 @@ import java.util.UUID;
 
 @Log4j2
 @Component
-public class CourseRestTemplateClient {
+public class AuthUserRestTemplateClient {
 
+   @Value("${ead.api.url.authuser}")
+   private String REQUEST_URL_AUTHUSER;
     @Autowired
    private UtilsService utilsService;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public Page<UserDto> getAllUsersByCourses(UUID courseId, Pageable pageable){
-        List<UserDto> searchResult = null;
-        ResponseEntity<ResponsePageDto<UserDto>> result = null;
-        String url =  utilsService.createUrl(courseId, pageable);
-        log.debug("Request URL: {} ", url);
-        log.info("Request URL: {} ", url);
-        try{
-            ParameterizedTypeReference<ResponsePageDto<UserDto>> responseType = new ParameterizedTypeReference<ResponsePageDto<UserDto>>() {};
-            result = restTemplate.exchange(url, HttpMethod.GET, null, responseType);
-            searchResult = result.getBody().getContent();
-            log.debug("Response Number of Elements: {} ", searchResult.size());
-        } catch (HttpStatusCodeException e){
-            log.error("Error request /courses {} ", e);
-        }
-        log.info("Ending request /users courseId {} ", courseId);
-        return result.getBody();
-    }
-
     public Page<UserDto> getAllUsersByCourse(UUID courseId, Pageable pageable){
         List<UserDto> result = null;
-        String url = utilsService.createUrl(courseId, pageable);
+        String url =REQUEST_URL_AUTHUSER+ utilsService.createUrlGetAllUsersByCourse(courseId, pageable);
 
         log.debug("debug url: {} ",url);
         log.info("info url: {} ",url);
@@ -64,4 +50,13 @@ public class CourseRestTemplateClient {
         return new PageImpl<>(result);
     }
 
+    public ResponseEntity<UserDto> getOneUserById(UUID userid){
+        String url = REQUEST_URL_AUTHUSER +"/users/"+userid;
+        return restTemplate.exchange(url,HttpMethod.GET,null,UserDto.class);
+    }
+
+    public void postSubscriptionUserInCourse(CourseUserDto courseUserDto,UUID userCourseId) {
+        String url = REQUEST_URL_AUTHUSER +"/users/" + userCourseId+ "/courses/subscription";
+        restTemplate.postForObject(url,courseUserDto,String.class);
+    }
 }

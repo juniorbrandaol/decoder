@@ -85,4 +85,11 @@ public class CourseUserServiseImpl implements CourseUserService {
         return courseUserModel;
     }
 
+    @Transactional
+    @Override
+    public void deleteCourseInAuthUser(UUID courseId) {
+        authUserFeignClient.deleteCourseInAuthUser(courseId);
+    }
+
+
 }

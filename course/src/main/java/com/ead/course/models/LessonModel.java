@@ -30,7 +30,8 @@ public class LessonModel implements Serializable {
     private LocalDateTime creationDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(optional = false ,fetch = FetchType.LAZY)
+    @ManyToOne( optional = false ,fetch = FetchType.LAZY)
+    @JoinColumn(name = "moduleId")
     private ModuleModel module;
 
 }

@@ -32,6 +32,7 @@ public class ModuleModel implements Serializable {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//defique que será um acesso apenas de escrita, será ocultado de visualização
     @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    @JoinColumn(name = "courseId")
     private CourseModel course;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

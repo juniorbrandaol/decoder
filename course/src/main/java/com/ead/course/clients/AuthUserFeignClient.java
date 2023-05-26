@@ -28,4 +28,8 @@ public interface AuthUserFeignClient {
     @PostMapping("{userId}/courses/subscription")
     @ResponseStatus(HttpStatus.CREATED)
     void postSubscriptionUserInCourse( @RequestBody @Valid CourseUserDto userCourseDto, @PathVariable(value = "userId") UUID userId);
+
+    @DeleteMapping("courses/{courseId}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteCourseInAuthUser(  @PathVariable(value = "courseId")  UUID courseId);
 }

@@ -1,12 +1,15 @@
 server:
   port: 8087
+  servlet:
+    context-path: '/ead-authuser/'
 
 eureka:
   client:
+    enabled: true
     service-url:
       defaultZone: 'http://localhost:8761/eureka'
   instance:
-    hostname: localhost
+    hostname : localhost
 
 spring:
   application:
@@ -15,16 +18,26 @@ spring:
     url: jdbc:postgresql://localhost:5432/ead-authuser
     username: postgres
     password: 1224
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+            loggerLevel: basic
+    config: false
+
   jpa:
     hibernate:
       ddl-auto:update
       dialect:org.hibernate.dialect.PostgreSQLDialect
       jdbc:lob:non_contextual_creation=true
+    show_sql: true
     properties:
-      hibernate: format_sql = true
-      open-in-view: false
-      show-sql: true
-      generate-ddl: true
+      hibernate: format_sql=true
+    open-in-view: false
+    generate-ddl: true
 
 
 
@@ -36,7 +49,7 @@ spring:
 ead:
   api:
     url:
-      course: 'http://ead-course-service'
+      course: 'http://ead-course-service/ead-course'
 
 logging:
   level:
@@ -45,4 +58,23 @@ logging:
     org.springframework.web: DEBUG
     web: DEBUG
     org.hibernate: INFO
+
+#Configuração do resilliebce4j a nivel de método. criamos as instancias(name) ex:curcuitbreakerInstance, retryIntance
+#O retry é uma das possibilidades de implementação de um broker. temos o circuitbreaker tambem
+resilience4j:
+  circuitbreaker:
+    instances:
+      curcuitbreakerInstance:
+        slidingWindowSize: 30 #para cada 30 tentativas
+        permittedNumberOfCallsInHalfOpenState: 2
+        slidingWindowType: TIME_BASED
+        minimumNumberOfCalls: 2 # após duas chamadas, ele levará em conta a porcentagem de falhas
+        waitDurationInOpenState: 30s # período de tempo que o circuto fica em um certo estado, depois muda
+        failureRateThreshold: 80  #porcentagem aceita de falhas
+  retry:
+    instances:
+      retryIntance:
+        maxAttempts: 3
+        waitDuration: 5s
+
 

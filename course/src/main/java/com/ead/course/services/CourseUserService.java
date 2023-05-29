@@ -17,4 +17,8 @@ public interface CourseUserService {
     ResponseEntity<UserDto> getOneUserById(UUID userid);
     CourseUserModel saveAndSendSubscriptionUserInCourse(CourseUserModel courseUserModel);
     void deleteCourseInAuthUser(UUID courseId);
+
+    boolean existsByUserId(UUID userId);
+
+    void deleteCourseUserByUser(UUID userId);
 }

@@ -2,6 +2,8 @@ package com.ead.authuser.services.impl;
 
 import com.ead.authuser.Repositories.UserCourseRepository;
 import com.ead.authuser.Repositories.UserRepository;
+import com.ead.authuser.clients.CourseFeignclient;
+import com.ead.authuser.clients.CourseRestTemplateClient;
 import com.ead.authuser.models.UserCourseModel;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.services.UserService;
@@ -23,6 +25,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserCourseRepository userCourseRepository;
 
+    //caso queira usar o feignclient
+    @Autowired
+    private CourseFeignclient courseFeignclient;
+
+    //caso opte pelo restTemplate
+    @Autowired
+    private CourseRestTemplateClient courseRestTemplateClient;
+
     @Override
     public List<UserModel> findAll() {
         return userRepository.findAll();
@@ -36,11 +46,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void delete(UserModel userModel) {
+
+        boolean deleteUserCourseInCourse= false;
         List<UserCourseModel> userCourseModelList = userCourseRepository.findAllUserCourseIntoUser(userModel.getUserId());
         if(!userCourseModelList.isEmpty()){
             userCourseRepository.deleteAll(userCourseModelList);
         }
         userRepository.delete(userModel);
+        if(deleteUserCourseInCourse){
+            courseFeignclient.deleteUserCourseIncourse(userModel.getUserId());
+        }
     }
 
     @Override

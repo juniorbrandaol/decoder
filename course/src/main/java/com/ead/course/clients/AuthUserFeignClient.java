@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
-
+//"${ead.api.url.authuser}"
 @Component
-@FeignClient(name="ead-authuser-service",url = "localhost:8087",path = "/users")
+@FeignClient(name="EAD-AUTHUSER-SERVICE",url = "http://localhost:8080/ead-authuser",path = "/users")
 public interface AuthUserFeignClient {
 
     @GetMapping("?courseId={courseId}")
@@ -25,11 +25,11 @@ public interface AuthUserFeignClient {
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<UserDto> getOneUserById(@PathVariable(value = "userId") UUID userid);
 
-    @PostMapping("{userId}/courses/subscription")
+    @PostMapping("/{userId}/courses/subscription")
     @ResponseStatus(HttpStatus.CREATED)
     void postSubscriptionUserInCourse( @RequestBody @Valid CourseUserDto userCourseDto, @PathVariable(value = "userId") UUID userId);
 
-    @DeleteMapping("courses/{courseId}")
+    @DeleteMapping("/courses/{courseId}")
     @ResponseStatus(HttpStatus.OK)
     void deleteCourseInAuthUser(  @PathVariable(value = "courseId")  UUID courseId);
 }

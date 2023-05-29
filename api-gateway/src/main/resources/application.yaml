@@ -1,0 +1,30 @@
+#porta do gateway
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ead-api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: authuser-service
+          uri: lb://EAD-AUTHUSER-SERVICE
+          predicates:
+            - Path=/ead-authuser/**
+        - id: course-service
+          uri: lb://EAD-COURSE-SERVICE
+          predicates:
+            - Path=/ead-course/**
+
+  #colorir mensagens no terminal windows
+  output:
+    ansi:
+      enabled: ALWAYS
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8761/eureka'
+  instance:
+    hostname: localhost

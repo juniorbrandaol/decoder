@@ -9,6 +9,7 @@ import com.ead.course.models.CourseUserModel;
 import com.ead.course.repositories.CourseUserRepository;
 import com.ead.course.services.CourseUserService;
 import com.ead.course.services.UtilsService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,6 +44,8 @@ public class CourseUserServiseImpl implements CourseUserService {
     //client user feignClient
     @Autowired
     private AuthUserFeignClient authUserFeignClient;
+
+    @CircuitBreaker(name = "curcuitbreakerInstance")
     @Override
     public Page<UserDto> getAllUsersByCourse(UUID courseId, Pageable pageable){
         List<UserDto> result = null;
@@ -91,5 +95,24 @@ public class CourseUserServiseImpl implements CourseUserService {
         authUserFeignClient.deleteCourseInAuthUser(courseId);
     }
 
+    @Override
+    public boolean existsByUserId(UUID userId) {
+        return courseUserRepository.existsByUserId(userId);
+    }
+
+    @Transactional
+    @Override
+    public void deleteCourseUserByUser(UUID userId) {
+       courseUserRepository.deleteAllByUserId(userId);
+    }
+
+
+    //método para ser usando apenas se quiser uma rota alternativa , caso dê problema na rota, usando fallbackMethod
+    public Page<UserDto> circuitbreakerfallback(UUID courseId, Pageable pageable,Throwable t){
+        log.error("Inside circuitbreaker circuitbraekerfallback cause- {} ",t.toString());
+        List<UserDto> result = new ArrayList<>();
+        log.error("========== SISTEMA DE CURSOS FORA DO AR ========= ");
+        return new PageImpl<>(result);
+    }
 
 }

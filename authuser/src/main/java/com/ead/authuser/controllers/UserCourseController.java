@@ -37,10 +37,14 @@ public class UserCourseController {
     private UserService userService;
 
     @GetMapping("users/{userId}/courses")
-    public ResponseEntity<Page<CourseDto>> getAllCoursesByUser(
+    public ResponseEntity<Object> getAllCoursesByUser(
           @PageableDefault(page = 0,size = 10,sort = "courseId", direction = Sort.Direction.ASC) Pageable pageable,
           @PathVariable(value = "userId") UUID userId
        ){
+        Optional<UserModel> userModelOptional = userService.findById(userId);
+        if(!userModelOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user not found");
+        }
        return ResponseEntity.status(HttpStatus.OK).body(userCourseService.getAllCoursesByUser(userId,pageable));
     }
 

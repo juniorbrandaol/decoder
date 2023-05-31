@@ -14,20 +14,21 @@ eureka:
 spring:
   application:
     name: ead-authuser-service
- ## config:
- #   import: 'configserver:'
+  config:
+    import: 'optional:configserver:'
   cloud:
     config:
       discovery:
         service-id: 'ead-config-server'
+
     openfeign:
         client:
           config:
-             default:
-               connectTimeout: 5000
-               readTimeout: 5000
-               loggerLevel: basic
-             config: false
+            feignName:
+              connectTimeout: 5000
+              readTimeout: 5000
+              loggerLevel: basic
+
 
   datasource:
     url: jdbc:postgresql://localhost:5432/ead-authuser-v2

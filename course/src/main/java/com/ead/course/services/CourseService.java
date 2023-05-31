@@ -1,6 +1,5 @@
 package com.ead.course.services;
 
-import com.ead.course.dtos.UserDto;
 import com.ead.course.models.CourseModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

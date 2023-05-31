@@ -21,22 +21,22 @@ public class UserModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private UUID id;
-    @Column(nullable = false,unique = true,length = 50)
+    private UUID userId;
+    @Column(nullable = false, unique = true, length = 50)
     private String email;
-    @Column(nullable = false,length = 150)
+    @Column(nullable = false, length = 150)
     private String fullName;
-    @Column(nullable = false)
+    @Column(nullable=false)
     private String userStatus;
-    @Column(nullable = false)
+    @Column(nullable=false)
     private String userType;
-    @Column(nullable = false,length = 20)
+    @Column(length = 20)
     private String cpf;
     @Column
     private String imageUrl;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//defique que será um acesso apenas de escrita, será ocultado de visualização
-    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<CourseModel> courses;
 
 }

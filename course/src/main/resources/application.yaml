@@ -34,15 +34,24 @@ spring:
     open-in-view: false
     generate-ddl: true
 
-    #colorir mensagens no terminal windows
-    output:
+   #colorir mensagens no terminal windows
+  output:
     ansi:
-    enabled: ALWAYS
+     enabled: ALWAYS
+
+  rabbitmq:
+    addresses: amqps://opsazktl:pjGwggbKPiZQ8eOzUD2LXjjjM7yU2Y-B@moose.rmq.cloudamqp.com/opsazktl
 
 ead:
   api:
     url:
-     authuser: 'http://ead-authuser-service/ead-authuser/'
+     authuser: 'http://ead-authuser-service/ead-authuser'
+  broker:
+    exchange:
+      userEventExchange: ead.userevent
+    queue:
+      userEventQueue:
+        name: ead.userEvent.ms.course
 
 logging:
   level:

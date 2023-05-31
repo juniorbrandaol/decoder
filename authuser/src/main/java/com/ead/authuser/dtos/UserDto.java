@@ -9,6 +9,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
+
 import java.util.UUID;
 
 @Data
@@ -22,7 +24,6 @@ public class UserDto {
         public static interface PasswordPut{}
         public static interface ImagePut{}
     }
-    private UUID userId;
 
     //validação customizada
     @UsernameConstraint(groups = UserView.RegistrationPost.class)
@@ -51,12 +52,17 @@ public class UserDto {
     @NotBlank(groups =UserView.PasswordPut.class,message = "Oldpassword não pode estar vazio" )
     @JsonView({UserView.PasswordPut.class})
     private String oldPassword;
+
     @JsonView({UserView.RegistrationPost.class,UserView.UserPut.class})
     private String fullName;
+
     @JsonView({UserView.RegistrationPost.class,UserView.UserPut.class})
     private String phoneNumber;
+
+   // @CPF(groups ={UserView.RegistrationPost.class ,UserView.UserPut.class})
     @JsonView({UserView.RegistrationPost.class,UserView.UserPut.class})
     private String cpf;
+
     @NotBlank(groups = UserView.ImagePut.class,message = "Image não pode estar vazio")
     @JsonView(UserView.ImagePut.class)
     private String imageUrl;

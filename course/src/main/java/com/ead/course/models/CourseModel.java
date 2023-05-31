@@ -26,16 +26,16 @@ public class CourseModel  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID courseId;
-    @Column(nullable = false,unique = true,length = 150)
+    @Column(nullable = false, length = 150)
     private String name;
-    @Column(nullable = false,unique = true,length = 250)
+    @Column(nullable = false, length = 250)
     private String description;
     @Column
     private String imageUrl;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(nullable = false)
     private LocalDateTime creationDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(nullable = false)
     private LocalDateTime lastUpdateDate;
     @Column(nullable = false)
@@ -45,18 +45,18 @@ public class CourseModel  implements Serializable {
     @Enumerated(EnumType.STRING)
     private CourseLevel courseLevel;
     @Column(nullable = false)
-    private UUID UserInstructor;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//defique que será um acesso apenas de escrita, será ocultado de visualização
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private UUID userInstructor;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY )
     @Fetch(FetchMode.SUBSELECT)
     private Set<ModuleModel> modules;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//defique que será um acesso apenas de escrita, será ocultado de visualização
-    @ManyToAny(fetch = FetchType.LAZY)
-    @JoinTable(name = "TB_COURSES_USERS",
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(    name = "TB_COURSES_USERS",
             joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<UserModel> users;
 
 

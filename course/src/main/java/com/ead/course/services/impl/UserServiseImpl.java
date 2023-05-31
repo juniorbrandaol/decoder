@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Log4j2
 @Service
 public class UserServiseImpl implements UserService  {
@@ -21,5 +23,15 @@ public class UserServiseImpl implements UserService  {
     @Override
     public Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable) {
         return userRepository.findAll(spec,pageable);
+    }
+
+    @Override
+    public UserModel save(UserModel userModel) {
+        return  userRepository.save(userModel);
+    }
+
+    @Override
+    public void delete(UUID userId) {
+        userRepository.deleteById(userId);
     }
 }

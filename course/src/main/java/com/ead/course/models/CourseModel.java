@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.ManyToAny;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -50,12 +51,13 @@ public class CourseModel  implements Serializable {
     @Fetch(FetchMode.SUBSELECT)
     private Set<ModuleModel> modules;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "course" , fetch =FetchType.LAZY )
-    Set<CourseUserModel> coursesUsers;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)//defique que será um acesso apenas de escrita, será ocultado de visualização
+    @ManyToAny(fetch = FetchType.LAZY)
+    @JoinTable(name = "TB_COURSES_USERS",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<UserModel> users;
 
-    public CourseUserModel convertToCourseUserModel(UUID userId){
-        return new CourseUserModel(null,this, userId);
-    }
 
 }

@@ -1,13 +1,11 @@
 package com.ead.authuser.clients;
 
 import com.ead.authuser.dtos.CourseDto;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,7 +20,5 @@ public interface CourseFeignclient {
     @ResponseStatus(HttpStatus.OK)
     public Page<CourseDto> getAllCoursesByUser( @PathVariable(required = false) UUID userId, Pageable pageable);
 
-    @DeleteMapping("/users/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    void deleteUserCourseIncourse(@PathVariable(value = "userId") UUID userId);
+
 }

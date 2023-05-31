@@ -2,7 +2,7 @@
 server:
   port: 8761
 
-#PARA A APLICA«√O STARTAR APENAS COMO SERVIDOR
+#PARA A APLICA√á√ÉO STARTAR APENAS COMO SERVIDOR
 eureka:
   client:
     register-with-eureka: false

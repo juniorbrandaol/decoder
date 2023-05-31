@@ -12,7 +12,9 @@ spring:
           default-label: main
           username:
           password:
-
+  output:
+    ansi:
+      enabled: ALWAYS
 
 eureka:
   client:

@@ -2,7 +2,6 @@ package com.ead.authuser.clients;
 
 import com.ead.authuser.dtos.CourseDto;
 import com.ead.authuser.dtos.ResponsePageDto;
-import com.ead.authuser.models.UserCourseModel;
 import com.ead.authuser.services.UtilsService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +49,4 @@ public class CourseRestTemplateClient {
       return new PageImpl<>(result);
    }
 
-    public void deleteUserCourseIncourse(UUID userId) {
-       String url = REQUEST_URL_COURSE+ "/courses/users/"+userId;
-      restTemplate.exchange(url,HttpMethod.DELETE,null,String.class);
-    }
 }

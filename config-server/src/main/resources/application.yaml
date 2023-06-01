@@ -6,9 +6,10 @@ spring:
     name: ead-config-server
   cloud:
     config:
+      label: asyncronous
       server:
         git:
-          uri: https://github.com/juniorbrandaol/decoder/tree/asyncronous
+          uri: https://github.com/juniorbrandaol/decoder/
           default-label: asyncronous
           username:
           password:

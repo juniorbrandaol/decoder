@@ -1,6 +1,7 @@
 package com.ead.course.services.impl;
 
 import com.ead.course.models.UserModel;
+import com.ead.course.repositories.CourseRepository;
 import com.ead.course.repositories.UserRepository;
 import com.ead.course.services.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -9,7 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Log4j2
@@ -18,7 +21,8 @@ public class UserServiseImpl implements UserService  {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private CourseRepository courseRepository;
 
     @Override
     public Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable) {
@@ -30,8 +34,15 @@ public class UserServiseImpl implements UserService  {
         return  userRepository.save(userModel);
     }
 
+    @Transactional
     @Override
     public void delete(UUID userId) {
+        courseRepository.deleteCourseUserByUser(userId);
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public Optional<UserModel> findById(UUID userInstructor) {
+        return userRepository.findById(userInstructor);
     }
 }

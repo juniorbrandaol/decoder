@@ -4,32 +4,31 @@ server:
  servlet:
   context-path: '/ead-notification/'
 
+
 spring:
  application:
   name: ead-notification-service
  config:
-  import: 'optional:configserver:'
-  cloud:
+   import: 'optional:configserver:'
+ cloud:
     config:
-     discovery:
-      serviceId: ead-config-server
+      discovery:
+       serviceid: 'ead-config-server'
 
  datasource:
   url:  jdbc:postgresql://localhost:5432/ead-notification-v2
   username: postgres
   password: 1224
  jpa:
-   hibernate:
-     ddl-auto: update
-     dialect: org.hibernate.dialect.PostgreSQLDialect
-     jdbc:
-        lob: non_contextual_creation=true
-   properties:
     hibernate:
-      show_sql: true
-      open-in-view: false
-      generate-ddl: true
-      format_sql: true
+       ddl-auto:update
+       dialect:org.hibernate.dialect.PostgreSQLDialect
+       jdbc:lob:non_contextual_creation= true
+    show_sql: true
+    properties:
+       hibernate: format_sql=true
+    open-in-view: false
+    generate-ddl: true
  output:
   ansi:
    enabled: Always

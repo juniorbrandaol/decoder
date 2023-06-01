@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/juniorbrandaol/decoder/
+          uri: https://github.com/juniorbrandaol/decoder/tree/asyncronous
           default-label: asyncronous
           username:
           password:

@@ -1,5 +1,6 @@
+
 server:
- port: 8084
+ port: 8086
  servlet:
   context-path: '/ead-notification/'
 
@@ -11,16 +12,16 @@ spring:
  cloud:
   config:
    discovery:
-    serviceId: ead-config-server
+    service-id: 'ead-config-server'
  datasource:
   url:  jdbc:postgresql://localhost:5432/ead-notification-v2
   username: postgres
   password: 1224
  jpa:
    hibernate:
-    ddl-auto:update
-    dialect:org.hibernate.dialect.PostgreSQLDialect
-    jdbc:lob:non_contextual_creation=true
+     ddl-auto:update
+     dialect:org.hibernate.dialect.PostgreSQLDialect
+     jdbc:lob:non_contextual_creation=true
    show_sql: true
    properties:
     hibernate: format_sql=true
@@ -29,6 +30,7 @@ spring:
  output:
   ansi:
    enabled: Always
+
  rabbitmq:
   addresses: amqps://opsazktl:pjGwggbKPiZQ8eOzUD2LXjjjM7yU2Y-B@moose.rmq.cloudamqp.com/opsazktl
 

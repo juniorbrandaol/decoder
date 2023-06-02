@@ -43,7 +43,17 @@ logging:
   org.springframework.web: DEBUG
   org.hibernate: INFO
 
-# inserir broker properties
+#broker properties(rabbitmq)
+ead:
+   broker:
+      exchange:
+         notificationCommandExchange: ead.notificationCommand
+      queue:
+         notificationCommandQueue:
+            name: ead.notificationCommand.ms.notification
+      key:
+         notificationCommandkey: ms.notification
+
 
 #atualiza o config em tempo de execução
 management:

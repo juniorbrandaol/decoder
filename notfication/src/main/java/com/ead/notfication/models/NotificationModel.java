@@ -20,7 +20,7 @@ public class NotificationModel implements Serializable {
     @Column(nullable = false,length = 150)
     private String title;
     @Column(nullable = false)
-    private String menssage;
+    private String message;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     @Column(nullable = false)
     private LocalDateTime criationDate;
@@ -54,12 +54,12 @@ public class NotificationModel implements Serializable {
         this.title = title;
     }
 
-    public String getMenssage() {
-        return menssage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMenssage(String menssage) {
-        this.menssage = menssage;
+    public void setMessage(String menssage) {
+        this.message = menssage;
     }
 
     public LocalDateTime getCriationDate() {

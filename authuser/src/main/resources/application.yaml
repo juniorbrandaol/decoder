@@ -3,13 +3,13 @@ server:
   servlet:
     context-path: '/ead-authuser/'
 
-eureka:
-  client:
-    enabled: true
-    service-url:
-      defaultZone: 'http://localhost:8761/eureka'
-  instance:
-    hostname : localhost
+#eureka:
+#  client:
+#    enabled: true
+#    service-url:
+#      defaultZone: 'http://localhost:8761/eureka'
+#  instance:
+#    hostname : localhost
 
 spring:
   application:
@@ -17,11 +17,11 @@ spring:
   config:
     import: 'optional:configserver:'
   cloud:
-    config:
-      discovery:
-        service-id: 'ead-config-server'
+   config:
+     discovery:
+       service-id: 'ead-config-server'
 
-    openfeign:
+  openfeign:
         client:
           config:
             feignName:

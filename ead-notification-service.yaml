@@ -4,7 +4,6 @@ server:
  servlet:
   context-path: '/ead-notification/'
 
-
 spring:
  application:
   name: ead-notification-service
@@ -14,7 +13,6 @@ spring:
     config:
       discovery:
        serviceid: 'ead-config-server'
-
  datasource:
   url:  jdbc:postgresql://localhost:5432/ead-notification-v2
   username: postgres
@@ -27,8 +25,8 @@ spring:
     show_sql: true
     properties:
        hibernate: format_sql=true
-    open-in-view: false
-    generate-ddl: true
+       open-in-view: false
+       generate-ddl: true
  output:
   ansi:
    enabled: Always
@@ -43,7 +41,17 @@ logging:
   org.springframework.web: DEBUG
   org.hibernate: INFO
 
-# inserir broker properties
+#broker properties(rabbitmq)
+ead:
+   broker:
+      exchange:
+         notificationCommandExchange: ead.notificationCommand
+      queue:
+         notificationCommandQueue:
+            name: ead.notificationCommand.ms.notification
+      key:
+         notificationCommandkey: ms.notification
+
 
 #atualiza o config em tempo de execução
 management:
@@ -54,9 +62,9 @@ management:
      - refresh
      - health
 
-eureka:
- client:
-  serviceUrl:
-   defaultZone: 'http://localhost:8761/eureka'
- instance:
-  hostname: localhost
+#eureka:
+# client:
+#  serviceUrl:
+#   defaultZone: 'http://localhost:8761/eureka'
+# instance:
+#  hostname: localhost

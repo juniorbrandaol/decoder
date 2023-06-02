@@ -17,6 +17,9 @@ spring:
       enabled: ALWAYS
 #Srpring security
 ead:
+  configServer:
+    username: configServer
+    password: 'ead1224server'
   serviceRegistry:
     username: serviceregistry
     password: 'ead1224service'

@@ -9,17 +9,22 @@ spring:
       server:
         git:
           uri: https://github.com/juniorbrandaol/decoder
-          default-label: main
+          default-label: asyncronous
           username:
           password:
   output:
     ansi:
       enabled: ALWAYS
+#Srpring security
+ead:
+  serviceRegistry:
+    username: serviceregistry
+    password: 'ead1224service'
 
 eureka:
   client:
     service-url:
-      defaultZone: 'http://localhost:8761/eureka'
+      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka'
   instance:
     hostname : localhost
 

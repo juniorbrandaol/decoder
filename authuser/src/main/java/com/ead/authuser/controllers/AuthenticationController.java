@@ -1,24 +1,26 @@
 package com.ead.authuser.controllers;
 
 import com.ead.authuser.dtos.UserDto;
+import com.ead.authuser.enuns.RoleType;
 import com.ead.authuser.enuns.UserStatus;
 import com.ead.authuser.enuns.UserType;
+import com.ead.authuser.models.RoleModel;
 import com.ead.authuser.models.UserModel;
+import com.ead.authuser.services.RoleService;
 import com.ead.authuser.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
-
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Optional;
 
 @Log4j2//para log. pacote lombok
 @RestController
@@ -28,6 +30,11 @@ public class AuthenticationController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
     public ResponseEntity<Object> registerUser(
@@ -42,12 +49,16 @@ public class AuthenticationController {
            log.warn("Email {} is alread taken ",userDto.getEmail());
            return ResponseEntity.status(HttpStatus.CONFLICT).body("error: Useremail is alread taken");
         }
+        RoleModel roleModel = roleService.findByRoleName(RoleType.ROLE_STUDENT).
+                orElseThrow(()-> new RuntimeException("Error: Role is not found"));
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         var userModel = new UserModel();
         BeanUtils.copyProperties(userDto,userModel);
         userModel.setUserStatus(UserStatus.ACTIVE);
         userModel.setUserType(UserType.STUDENT);
         userModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
         userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
+        userModel.getRoles().add(roleModel);
         userService.saveUser(userModel);
         log.debug("POST registerUser userId saved {} ",userModel.getUserId());
         log.info("User saved successfully userId: {} ",userModel.getUserId());

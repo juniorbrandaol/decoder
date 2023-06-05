@@ -1,5 +1,7 @@
 package com.ead.authuser.controllers;
 
+import com.ead.authuser.configs.security.AuthenticationCurrentUserService;
+import com.ead.authuser.configs.security.UserDetailsImpl;
 import com.ead.authuser.dtos.UserDto;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.services.UserService;
@@ -13,6 +15,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,16 +38,18 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AuthenticationCurrentUserService authenticationCurrentUserService;
 
-
+    @PreAuthorize("hasAnyRole('ADMIN','INSTRUCTOR')")
     @GetMapping
     public ResponseEntity<Page<UserModel>> getAllUsers(
             SpecificationTemplate.UserSpec spec,
             @PageableDefault(page = 0,size = 10,sort = "creationDate", direction = Sort.Direction.DESC)
-            Pageable pageable
+            Pageable pageable, Authentication authentication
     ){
+        log.info("Authentication {}",authenticationCurrentUserService.getCurrentUser());
         Page<UserModel> userModelPage = userService.findAll(spec,pageable);
-
         if(!userModelPage.isEmpty()){
             for (UserModel user:userModelPage.toList()){
                 user.add(linkTo(methodOn(UserController.class).getUser(user.getUserId())).withSelfRel());
@@ -50,16 +58,24 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userModelPage);
     }
 
+    @PreAuthorize("hasAnyRole('STUDENT')")
     @GetMapping("/{userId}")
     public ResponseEntity<Object> getUser(@PathVariable UUID userId ){
-        Optional<UserModel> userModel = userService.findById(userId);
-        if(!userModel.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+
+        UUID currentUserId =  authenticationCurrentUserService.getCurrentUser().getUserId();
+        if(currentUserId.equals(userId)) {
+            Optional<UserModel> userModel = userService.findById(userId);
+            if (!userModel.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(userModel.get());
+            }
         }else{
-            return ResponseEntity.status(HttpStatus.OK).body(userModel.get());
+            throw new AccessDeniedException("Forbidden");
         }
     }
 
+    @PreAuthorize("hasAnyRole('STUDENT')")
     @DeleteMapping("/{userId}")
     public ResponseEntity<Object> deleteUser(@PathVariable UUID userId ){
         Optional<UserModel> userModel = userService.findById(userId);
@@ -74,6 +90,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('STUDENT')")
     @PutMapping("/{userId}")
     public ResponseEntity<Object> updateUser(
             @PathVariable UUID userId,
@@ -97,6 +114,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('STUDENT')")
     @PutMapping("/{userId}/password")
     public ResponseEntity<Object> updatePassword(
             @PathVariable UUID userId,
@@ -120,6 +138,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('STUDENT')")
     @PutMapping("/{userId}/image")
     public ResponseEntity<Object> updateImage(
             @PathVariable UUID userId,

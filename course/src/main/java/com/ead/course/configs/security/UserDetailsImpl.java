@@ -1,42 +1,30 @@
-package com.ead.authuser.configs.security;
+package com.ead.course.configs.security;
 
-import com.ead.authuser.models.UserModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Data
-@AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
   private UUID userId;
-  private String userName;
-  private String fullName;
-  @JsonIgnore
-  private String password;
-  private String email;
   private Collection<? extends  GrantedAuthority> authorities;
 
   //método para converter usermodel em userDetails
-  public static UserDetailsImpl build(UserModel userModel){
-    List<GrantedAuthority> authorities = userModel.getRoles().stream()
-            .map( role-> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList());
-    return new UserDetailsImpl(
-            userModel.getUserId(),
-            userModel.getUserName(),
-            userModel.getFullName(),
-            userModel.getPassword(),
-            userModel.getEmail(),
-            authorities
-    );
+  public static UserDetailsImpl build(UUID userId, String rolesStr){
+    List<GrantedAuthority> authorities = Arrays.stream(rolesStr.split(","))
+            .map( role-> new SimpleGrantedAuthority(role)).collect(Collectors.toList());
+    return new UserDetailsImpl(userId,authorities);
+  }
+
+  public UserDetailsImpl(UUID userId, Collection<? extends GrantedAuthority> authorities) {
+    this.userId = userId;
+    this.authorities = authorities;
   }
 
   @Override
@@ -46,12 +34,12 @@ public class UserDetailsImpl implements UserDetails {
 
   @Override
   public String getPassword() {
-    return this.password;
+    return null;
   }
 
   @Override
   public String getUsername() {
-    return this.userName;
+    return null;
   }
 
   @Override
@@ -72,5 +60,17 @@ public class UserDetailsImpl implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  public UUID getUserId() {
+    return userId;
+  }
+
+  public void setUserId(UUID userId) {
+    this.userId = userId;
+  }
+
+  public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+    this.authorities = authorities;
   }
 }

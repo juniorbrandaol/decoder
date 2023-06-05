@@ -79,7 +79,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<JwtDto> authUser(@Valid @RequestBody LoginDto loginDto){
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(),loginDto.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginDto.getUserName(),loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateJwt(authentication);
         return ResponseEntity.ok(new JwtDto(jwt));

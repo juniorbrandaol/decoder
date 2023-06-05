@@ -25,6 +25,7 @@ public class UserDto {
         public static interface ImagePut{}
     }
 
+
     //validação customizada
     @UsernameConstraint(groups = UserView.RegistrationPost.class)
     @Size(min = 4,max = 50,message = "Username deve conter no mínmo {min} e no máximo {max} carcateres.",

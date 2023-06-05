@@ -30,7 +30,6 @@ spring:
               readTimeout: 5000
               loggerLevel: basic
 
-
   datasource:
     url: jdbc:postgresql://localhost:5432/ead-authuser-v2
     username: postgres

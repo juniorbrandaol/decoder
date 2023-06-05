@@ -1,4 +1,4 @@
-package com.ead.authuser.configs.security;
+package com.ead.course.configs.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,11 +27,6 @@ public class WebSecurityConfig {
     @Autowired
     private AuthenticationEntryPointImpl authenticationEntryPoint;
 
-    private static  final String[]  AUTH_WHITLIST ={
-        "/auth/**"
-    };
-
-
     @Bean
     public AuthenticationJwtFilter authenticationJwtFilter(){
       return new AuthenticationJwtFilter();
@@ -54,7 +49,6 @@ public class WebSecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .requestMatchers(AUTH_WHITLIST).permitAll()
             .anyRequest().authenticated()
             .and()
             .csrf().disable();

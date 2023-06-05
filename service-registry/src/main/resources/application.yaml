@@ -24,7 +24,7 @@ eureka:
 
   #colorir mensagens no terminal windows
   output:
-    ansi:
-      enabled: ALWAYS
+   ansi:
+    enabled: ALWAYS
 
 

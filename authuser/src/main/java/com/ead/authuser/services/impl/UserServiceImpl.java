@@ -1,8 +1,6 @@
 package com.ead.authuser.services.impl;
 
 import com.ead.authuser.Repositories.UserRepository;
-import com.ead.authuser.clients.CourseFeignclient;
-import com.ead.authuser.clients.CourseRestTemplateClient;
 import com.ead.authuser.enuns.ActionType;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.publishers.UserEventPublisher;
@@ -22,14 +20,6 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
-
-    //caso queira usar o feignclient
-    @Autowired
-    private CourseFeignclient courseFeignclient;
-
-    //caso opte pelo restTemplate
-    @Autowired
-    private CourseRestTemplateClient courseRestTemplateClient;
 
     @Autowired
     private UserEventPublisher userEventPublisher;

@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -37,18 +39,21 @@ public class UserCourseServiceImpl implements UserCourseService {
    // @Retry(name = "retryIntance", fallbackMethod ="retryfallback") //circuit break
     @CircuitBreaker(name = "curcuitbreakerInstance")
     @Override
-    public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable)  {
+    public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable,String token)  {
         List<CourseDto> result = null;
         String url =REQUEST_URI+ utilsService.createUrlGetAllCoursesByUser(userId, pageable);
+
+        //pegar o token
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization",token);
+        HttpEntity<String> requestEntity = new HttpEntity<String>("parameters",headers);
+
         log.debug("debug url: {} ",url);
         log.info("info url: {} ",url);
         System.out.println("--START REQUEST COURSE MICROSERVICE---");
-        try{
-            result =  userFeignclient.getAllCoursesByUser(userId, pageable).getContent();
-            log.debug("Response number of elements: {} ",result.size());
-        } catch (HttpStatusCodeException e){
-            log.error("Error request /courses{}",e);
-        }
+        result =  userFeignclient.getAllCoursesByUser(userId, pageable).getContent();
+        log.debug("Response number of elements: {} ",result.size());
+
         log.info("Ending request /courses userId{}",userId);
         return new PageImpl<>(result);
     }

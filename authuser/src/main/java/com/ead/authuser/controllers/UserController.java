@@ -1,7 +1,6 @@
 package com.ead.authuser.controllers;
 
 import com.ead.authuser.configs.security.AuthenticationCurrentUserService;
-import com.ead.authuser.configs.security.UserDetailsImpl;
 import com.ead.authuser.dtos.UserDto;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.services.UserService;
@@ -18,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

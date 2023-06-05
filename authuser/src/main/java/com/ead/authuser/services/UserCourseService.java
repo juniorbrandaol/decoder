@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 public interface UserCourseService {
-    Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable);
+    Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable,String token);
 }

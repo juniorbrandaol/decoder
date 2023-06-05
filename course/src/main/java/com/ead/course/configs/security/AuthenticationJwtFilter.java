@@ -1,6 +1,5 @@
 package com.ead.course.configs.security;
 
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +22,6 @@ public class AuthenticationJwtFilter extends OncePerRequestFilter {
 
   @Autowired
   private JwtProvider jwtProvider;
-
   Logger logger = LogManager.getLogger(AuthenticationJwtFilter.class);
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

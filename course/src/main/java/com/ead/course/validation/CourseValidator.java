@@ -1,10 +1,12 @@
 package com.ead.course.validation;
 
+import com.ead.course.configs.security.AuthenticationCurrentUserService;
 import com.ead.course.dtos.CourseDto;
 import com.ead.course.enuns.UserType;
 import com.ead.course.models.UserModel;
 import com.ead.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -18,6 +20,9 @@ public class CourseValidator implements Validator {
     private Validator validator;
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuthenticationCurrentUserService authenticationCurrentUserService;
     @Override
     public boolean supports(Class<?> clazz) {
         return false;
@@ -33,13 +38,17 @@ public class CourseValidator implements Validator {
     }
 
     private void validateUserInstructor(UUID userInstructor, Errors erros){
-
-        Optional<UserModel> userModelOptional = userService.findById(userInstructor);
-        if(!userModelOptional.isPresent()){
-            erros.rejectValue("userInstructor", "userInstructorError", "INSTRUCTOR NOT FOUND ");
-        }
-        if(userModelOptional.get().getUserType().equals(UserType.STUDENT.toString())){
-            erros.rejectValue("userInstructor", "userInstructorError", "User must be INSTRUCTOR OR ADMIN ");
+        UUID currentUserId = authenticationCurrentUserService.getCurrentUser().getUserId();
+        if(currentUserId.equals(userInstructor)) {
+            Optional<UserModel> userModelOptional = userService.findById(userInstructor);
+            if (!userModelOptional.isPresent()) {
+                erros.rejectValue("userInstructor", "userInstructorError", "INSTRUCTOR NOT FOUND ");
+            }
+            if (userModelOptional.get().getUserType().equals(UserType.STUDENT.toString())) {
+                erros.rejectValue("userInstructor", "userInstructorError", "User must be INSTRUCTOR OR ADMIN ");
+            }
+        }else{
+            throw  new AccessDeniedException("Forbidem");
         }
     }
 

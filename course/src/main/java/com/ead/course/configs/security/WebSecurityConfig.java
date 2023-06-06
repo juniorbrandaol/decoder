@@ -24,6 +24,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class WebSecurityConfig {
 
+  private static final String[] SWAGGER = {
+          "/v2/api-docs/**", "/swagger-resources", "/swagger-resources/**","/configuration/ui",
+          "/configuration/security","/swagger-ui.html", "/webjars/**",// -- Swagger UI v3 (OpenAPI)
+          "/v3/api-docs/**","/swagger-ui/**", };
+
     @Autowired
     private AuthenticationEntryPointImpl authenticationEntryPoint;
 
@@ -49,6 +54,7 @@ public class WebSecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
+            .requestMatchers(SWAGGER).permitAll()
             .anyRequest().authenticated()
             .and()
             .csrf().disable();

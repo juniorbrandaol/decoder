@@ -21,7 +21,6 @@ spring:
            predicates:
              - Path=/ead-notification/**
 
-
   #colorir mensagens no terminal windows
   output:
     ansi:

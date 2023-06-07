@@ -1,6 +1,6 @@
 #porta do eureka server
 server:
-  port: ${PORT}
+  port: 8761
 
 #Srpring security
 ead:

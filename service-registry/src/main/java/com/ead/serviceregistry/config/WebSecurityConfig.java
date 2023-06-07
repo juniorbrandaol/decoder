@@ -16,11 +16,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
 
-  //@Value("${ead.serviceRegistry.username}")
-  private String username="serviceregistry";
+  @Value("${ead.serviceRegistry.username}")
+  private String username;
 
-  //@Value("${ead.serviceRegistry.password}")
-  private String password="ead1224service";
+  @Value("${ead.serviceRegistry.password}")
+  private String password;
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

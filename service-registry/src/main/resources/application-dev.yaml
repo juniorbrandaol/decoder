@@ -1,0 +1,26 @@
+#porta do eureka server
+server:
+  port: 8761
+
+#Srpring security
+ead:
+  serviceRegistry:
+    username: serviceregistry
+    password: 'ead1224service'
+
+#PARA A APLICAÇÃO STARTAR APENAS COMO SERVIDOR
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka'
+  instance:
+    hostname: localhost
+
+  #colorir mensagens no terminal windows
+  output:
+   ansi:
+    enabled: ALWAYS
+
+

@@ -14,10 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
 
-  @Value("${ead.configServer.username}")
+  @Value("${ead.serviceRegistry.username}")
   private String username;
 
-  @Value("${ead.configServer.password}")
+  @Value("${ead.serviceRegistry.password}")
   private String password;
 
   @Bean

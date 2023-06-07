@@ -1,5 +1,5 @@
 server:
-  port: ${PORT}
+  port: 8888
 
 spring:
   cloud:
@@ -22,6 +22,9 @@ ead:
   configServer:
     username: ${CONFIG_SERVER_USERNAME}
     password: ${CONFIG_SERVER_PASSWORD}
+  serviceRegistry:
+    username: serviceregistry
+    password: 'ead1224service'
 
 eureka:
   client:

@@ -1,24 +1,38 @@
-server:
-  port: 8087
-  servlet:
-    context-path: '/ead-authuser/'
+#server:
+#  port: 8087
+#  servlet:
+#    context-path: '/ead-authuser/'
+
+#eureka:
+#  client:
+#    enabled: true
+#    service-url:
+#      defaultZone: 'http://localhost:8761/eureka'
+#  instance:
+#    hostname : localhost
 spring:
-  application:
-    name: ead-authuser-service
-  datasource:
+   config:
+     'optional:configserver:'
+   cloud:
+      config:
+       discovery:
+         service-id: 'ead-config-server'
+       username: configServerprod
+       password: 'ead1224serverprod'
+   openfeign:
+        client:
+          config:
+            feignName:
+              connectTimeout: 5000
+              readTimeout: 5000
+              loggerLevel: basic
+
+   datasource:
     url: jdbc:postgresql://localhost:5432/ead-authuser-v2
     username: postgres
     password: 1224
-  cloud:
-    openfeign:
-      client:
-        config:
-          default:
-            connectTimeout: 5000
-            readTimeout: 5000
-            loggerLevel: basic
-    config: false
-  jpa:
+
+   jpa:
     hibernate:
       ddl-auto:update
       dialect:org.hibernate.dialect.PostgreSQLDialect
@@ -29,19 +43,22 @@ spring:
     open-in-view: false
     generate-ddl: true
 
-  rabbitmq:
-  addresses: amqps://opsazktl:pjGwggbKPiZQ8eOzUD2LXjjjM7yU2Y-B@moose.rmq.cloudamqp.com/opsazktl
-
-
-#colorir mensagens no terminal windows
-  output:
+   #colorir mensagens no terminal windows
+   output:
     ansi:
       enabled: ALWAYS
+
+   rabbitmq:
+    addresses: amqps://opsazktl:pjGwggbKPiZQ8eOzUD2LXjjjM7yU2Y-B@moose.rmq.cloudamqp.com/opsazktl
 
 ead:
   api:
     url:
       course: 'http://ead-course-service/ead-course'
+  brocker:
+    exchange:
+      userEvent: ead.userevent
+
 
 logging:
   level:
@@ -63,10 +80,10 @@ resilience4j:
         minimumNumberOfCalls: 2 # após duas chamadas, ele levará em conta a porcentagem de falhas
         waitDurationInOpenState: 30s # período de tempo que o circuto fica em um certo estado, depois muda
         failureRateThreshold: 80  #porcentagem aceita de falhas
-  retry:
-    instances:
-      retryIntance:
-        maxAttempts: 3
-        waitDuration: 5s
+#  retry:
+#    instances:
+#      retryIntance:
+#        maxAttempts: 3
+#        waitDuration: 5s
 
 

@@ -20,8 +20,8 @@ spring:
    config:
      discovery:
        service-id: 'ead-config-server'
-     username: configServer
-     password: 'ead1224server'
+     username: configServerprod
+     password: 'ead1224serverprod'
   openfeign:
         client:
           config:

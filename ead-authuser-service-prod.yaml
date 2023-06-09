@@ -1,5 +1,5 @@
 server:
-  port: 8087
+  port: ${PORT}
   servlet:
     context-path: '/ead-authuser/'
 
@@ -7,9 +7,9 @@ spring:
   application:
     name: ead-authuser-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/ead-authuser-v2
-    username: postgres
-    password: 1224
+    url: ${JDBC_DATABASE_URL} 
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
   cloud:
     openfeign:
       client:
@@ -32,26 +32,13 @@ spring:
     generate-ddl: true
 
   rabbitmq:
-  addresses: amqps://opsazktl:pjGwggbKPiZQ8eOzUD2LXjjjM7yU2Y-B@moose.rmq.cloudamqp.com/opsazktl
-
-
-#colorir mensagens no terminal windows
-  output:
-    ansi:
-      enabled: ALWAYS
+    addresses: ${CLOUDAMQP_URL}
 
 ead:
   api:
     url:
       course: 'http://ead-course-service/ead-course'
 
-logging:
-  level:
-    com.ead: TRACE
-    root: INFO
-    org.springframework.web: DEBUG
-    web: DEBUG
-    org.hibernate: INFO
 
 #Configuração do resilliebce4j a nivel de método. criamos as instancias(name) ex:curcuitbreakerInstance, retryIntance
 #O retry é uma das possibilidades de implementação de um broker. temos o circuitbreaker tambem

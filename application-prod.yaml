@@ -1,8 +1,8 @@
 #Srpring security
 ead:
   serviceRegistry:
-    username: serviceregistryprod
-    password: 'ead1224serviceprod'
+    username: serviceregistry
+    password: 'ead1224service'
   auth:
     jwtSecret: VkXp2s5v8y/B?E(H+MbQeThWmZq3t6w9z$C&F)J@NcRfUjXn2r5u7x!A%D*G-KaP
     jwtExpirationMs: 14400000   

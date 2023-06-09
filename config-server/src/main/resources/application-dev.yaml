@@ -1,0 +1,33 @@
+server:
+  port: 8888
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/juniorbrandaol/decoder
+          default-label: asyncronous
+          username:
+          password:
+  output:
+    ansi:
+      enabled: ALWAYS
+#Srpring security
+ead:
+  configServer:
+    username: configServer
+    password: 'ead1224server'
+  serviceRegistry:
+    username: serviceregistry
+    password: 'ead1224service'
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka'
+  instance:
+    hostname : localhost
+
+
+

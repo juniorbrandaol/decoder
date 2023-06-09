@@ -10,7 +10,7 @@ ead:
 eureka:
   client:
     service-url:
-      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@ead-serviceregistry-production.herokuapp.com/eureka'
+      defaultZone: 'https://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@ead-serviceregistry-production.herokuapp.com/eureka'
   instance:
     hostname: ${APP_DOMAIN_NAME}
     non-secure-port: 80

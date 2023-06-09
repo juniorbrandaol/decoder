@@ -1,6 +1,13 @@
-
 spring:
-   profiles:
-      active: dev
-   application:
-      name: ead-authuser-service
+  application:
+    name: ead-authuser-service
+  profiles:
+     active: prod
+  openfeign:
+        client:
+          config:
+            feignName:
+              connectTimeout: 5000
+              readTimeout: 5000
+              loggerLevel: basic
+

@@ -15,6 +15,7 @@ spring:
 encrypt:
   key: Zr4u7x!A%D*G-JaNdRgUkXp2s5v8y/B?E(H+MbPeShVmYq3t6w9z$C&F)J@NcRfT
 
+
 #Srpring security
 ead:
    configServer:

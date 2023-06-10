@@ -1,10 +1,5 @@
 spring:
    config:
      import: 'configserver:${CONFIG_SERVER_URL}'
-   cloud:
-      config:
-         fail-fast: true
-ead:
-   serviceRegistry:
-      username: serviceregistry
-      password: 'ead1224service'
+
+

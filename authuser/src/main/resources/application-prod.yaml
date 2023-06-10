@@ -2,9 +2,3 @@ spring:
    config:
      import: 'configserver:${CONFIG_SERVER_URL}'
 
-#Srpring security
-ead:
-   serviceRegistry:
-      username: serviceregistry
-      password: 'ead1224service'
-

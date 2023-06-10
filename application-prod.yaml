@@ -7,6 +7,7 @@ ead:
     jwtSecret: VkXp2s5v8y/B?E(H+MbQeThWmZq3t6w9z$C&F)J@NcRfUjXn2r5u7x!A%D*G-KaP
     jwtExpirationMs: 14400000   
 
+
 eureka:
   client:
     service-url:

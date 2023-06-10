@@ -7,6 +7,7 @@ spring:
             git:
                uri: https://github.com/juniorbrandaol/decoder
                default-label: asyncronous
+               label: asyncronous, main
                username:
                password:
    output:

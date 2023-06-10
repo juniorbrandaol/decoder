@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         securedEnabled = true,
         jsr250Enabled = true
 )
-@EnableWebSecurity// desligando as configurações dafault do spring security
+
 @Configuration
 public class WebSecurityConfig {
 

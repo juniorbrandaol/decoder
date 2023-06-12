@@ -16,7 +16,7 @@ spring:
 #Srpring security
 ead:
   configServer:
-    username: configserver
+    username: configServer
     password: 'ead1224server'
   serviceRegistry:
     username: serviceregistry

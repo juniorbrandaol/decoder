@@ -1,3 +1,4 @@
+
 server:
   port: ${PORT}
   servlet:
@@ -19,7 +20,6 @@ spring:
             readTimeout: 5000
             loggerLevel: basic
     config: false
-
   jpa:
     hibernate:
       ddl-auto: update

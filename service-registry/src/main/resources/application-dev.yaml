@@ -1,7 +1,6 @@
 #porta do eureka server
 server:
   port: 8761
-
 #Srpring security
 ead:
   serviceRegistry:

@@ -8,9 +8,9 @@ spring:
   application:
     name: ead-authuser-service
   datasource:
-    url: ${JDBC_DATABASE_URL} 
-    username: ${JDBC_DATABASE_USERNAME}
-    password: ${JDBC_DATABASE_PASSWORD}
+    url: ${DATABASE_URL} 
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   cloud:
     openfeign:
       client:

@@ -1,6 +1,10 @@
 
 spring:
- config:
-  import: 'optional:configserver:${CONFIG_SERVER_URL}'
- web: node app.js
+   config:
+      import: 'configserver:'${CONFIG_SERVER_URL}
+#Srpring security
+ead:
+   serviceRegistry:
+      username: serviceregistry
+      password: 'ead1224service'
 

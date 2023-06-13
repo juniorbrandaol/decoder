@@ -8,14 +8,14 @@ spring:
             git:
                uri: https://github.com/juniorbrandaol/decoder-configs
                default-label: main
-               username:
-               password:
+               username: ${GIT_USERNAME}
+               password: ${GIT_PASSWORD}
    output:
       ansi:
          enabled: ALWAYS
 
 encrypt:
-   key: Zr4u7x!A%D*G-JaNdRgUkXp2s5v8y/B?E(H+MbPeShVmYq3t6w9z$C&F)J@NcRfT
+  key: Zr4u7x!A%D*G-JaNdRgUkXp2s5v8y/B?E(H+MbPeShVmYq3t6w9z$C&F)J@NcRfT
 
 #Srpring security
 ead:
@@ -33,6 +33,7 @@ eureka:
    instance:
       hostname: ${APP_DOMAIN_NAME}
       non-secure-port: 80
+
 
 
 

@@ -18,9 +18,6 @@ eureka:
    instance:
       hostname: ${APP_DOMAIN_NAME}
       non-secure-port: 80
-   #colorir mensagens no terminal windows
-   output:
-      ansi:
-         enabled: ALWAYS
+
 
 

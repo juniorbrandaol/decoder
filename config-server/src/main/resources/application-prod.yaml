@@ -1,39 +1,38 @@
 server:
-   port: ${PORT}
+  port: ${PORT}
 
 spring:
-   cloud:
-      config:
-         server:
-            git:
-               uri: https://github.com/juniorbrandaol/decoder-configs
-               default-label: main
-               username: ${GIT_USERNAME}
-               password: ${GIT_PASSWORD}
-   output:
-      ansi:
-         enabled: ALWAYS
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/juniorbrandaol/decoder
+          default-label: asyncronous
+          username:
+          password:
+  output:
+    ansi:
+      enabled: ALWAYS
 
 encrypt:
-  key: Zr4u7x!A%D*G-JaNdRgUkXp2s5v8y/B?E(H+MbPeShVmYq3t6w9z$C&F)J@NcRfT
+   key: Zr4u7x!A%D*G-JaNdRgUkXp2s5v8y/B?E(H+MbPeShVmYq3t6w9z$C&F)J@NcRfT
 
 #Srpring security
 ead:
-   configServer:
-      username: ${CONFIG_SERVER_USERNAME}
-      password: ${CONFIG_SERVER_PASSWORD}
-   serviceRegistry:
-      username: serviceregistry
-      password: 'ead1224service'
+  configServer:
+    username: ${CONFIG_SERVER_USERNAME}
+    password: ${CONFIG_SERVER_PASSWORD}
+  serviceRegistry:
+    username: serviceregistry
+    password: 'ead1224service'
 
 eureka:
-   client:
-      service-url:
-         defaultZone: ${EUREKA_URL}
-   instance:
-      hostname: ${APP_DOMAIN_NAME}
-      non-secure-port: 80
-
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+  instance:
+    hostname: ${APP_DOMAIN_NAME}
+    non-secure-port: 80
 
 
 

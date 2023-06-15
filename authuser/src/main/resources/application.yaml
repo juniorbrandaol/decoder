@@ -1,5 +1,5 @@
 spring:
-   profiles:
-      active: dev
-   application:
-      name: ead-authuser-service
+  profiles:
+     active: dev
+  application:
+    name: ead-authuser-service

@@ -23,9 +23,9 @@ import java.util.UUID;
 public class AuthenticationJwtFilter extends OncePerRequestFilter {
 
   @Autowired
-  private JwtProvider jwtProvider;
+  JwtProvider jwtProvider;
   @Autowired
-  private UserDetailsServiceImpl userDetailsService;
+  UserDetailsServiceImpl userDetailsService;
 
 
   @Override

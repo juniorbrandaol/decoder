@@ -19,6 +19,7 @@ eureka:
     hostname: localhost
 
   #colorir mensagens no terminal windows
+spring:
   output:
    ansi:
     enabled: ALWAYS

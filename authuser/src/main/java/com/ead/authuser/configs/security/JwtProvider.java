@@ -3,6 +3,7 @@ package com.ead.authuser.configs.security;
 import io.jsonwebtoken.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ public class JwtProvider {
    private int jwtExpirationMs;
 
    //gerar token
+
    public String generateJwt(Authentication authentication){
        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
        final String roles = userPrincipal.getAuthorities().stream()
@@ -34,11 +36,13 @@ public class JwtProvider {
    }
 
    //extrai parte do token
+
    public String getSubjectJwt(String token){
      return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
    }
 
    // valida o token
+
    public boolean validateJwt(String authToken){
       try{
         Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

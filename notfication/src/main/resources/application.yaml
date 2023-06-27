@@ -47,7 +47,13 @@ logging:
 
 #broker properties(rabbitmq)
 ead:
-   broker:
+  serviceRegistry:
+    username: serviceregistry
+    password: 'ead1224service'
+  auth:
+    jwtSecret: t7w!z%C*F-JaNdRgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6w9z$B&E)H@McQfTjWn
+    jwtExpirationMs: 14400000
+  broker:
       exchange:
          notificationCommandExchange: ead.notificationCommand
       queue:
@@ -66,9 +72,10 @@ management:
      - refresh
      - health
 
-#eureka:
- #client:
-  #serviceUrl:
-   #defaultZone: 'http://localhost:8761/eureka'
- #instance:
-  #hostname: localhost
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka'
+  instance:
+    hostname : localhost

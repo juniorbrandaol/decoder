@@ -3,12 +3,13 @@ server:
   servlet:
    context-path: '/ead-course/'
 
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: 'http://localhost:8761/eureka'
-#  instance:
-#    hostname: localhost
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka'
+  instance:
+    hostname : localhost
 
 spring:
   application:
@@ -45,6 +46,12 @@ spring:
     addresses: amqps://opsazktl:pjGwggbKPiZQ8eOzUD2LXjjjM7yU2Y-B@moose.rmq.cloudamqp.com/opsazktl
 
 ead:
+  serviceRegistry:
+    username: serviceregistry
+    password: 'ead1224service'
+  auth:
+    jwtSecret: t7w!z%C*F-JaNdRgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6w9z$B&E)H@McQfTjWn
+    jwtExpirationMs: 14400000
   api:
     url:
      authuser: 'http://ead-authuser-service/ead-authuser'

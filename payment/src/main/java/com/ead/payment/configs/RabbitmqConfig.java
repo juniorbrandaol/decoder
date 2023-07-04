@@ -1,4 +1,4 @@
-package com.ead.authuser.configs;
+package com.ead.payment.configs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -17,8 +17,9 @@ public class RabbitmqConfig {
     @Autowired
     private CachingConnectionFactory cachingConnectionFactory;
 
-    @Value("${ead.broker.exchange.userEvent}")
-    private String exchangeUserEvent;
+    @Value("${ead.broker.exchange.paymentEventExchange}")
+    private String exchangePaymentEvent;
+
 
     @Bean
     public RabbitTemplate rabbitTemplate(){
@@ -35,8 +36,8 @@ public class RabbitmqConfig {
     }
 
     @Bean
-    public FanoutExchange fanoutUserEvent(){
-        return new FanoutExchange(exchangeUserEvent);
+    public FanoutExchange fanoutPaymentEvent(){
+        return new FanoutExchange(exchangePaymentEvent);
     }
 
 }

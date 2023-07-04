@@ -14,7 +14,7 @@ public class UserEventPublisher {
     @Autowired
     RabbitTemplate rabbitTemplate;
 
-    @Value("${ead.brocker.exchange.userEvent}")
+    @Value("${ead.broker.exchange.userEvent}")
     private String exchangeUserEvent;
 
     public void publishUserevent(UserEventDto userEventDto, ActionType actionType){

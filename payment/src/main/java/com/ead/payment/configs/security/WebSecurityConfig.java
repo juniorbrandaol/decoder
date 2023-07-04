@@ -1,4 +1,4 @@
-package com.ead.authuser.configs.security;
+package com.ead.payment.configs.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,17 +20,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         securedEnabled = true,
         jsr250Enabled = true
 )
-
+@EnableWebSecurity// desligando as configurações dafault do spring security
 @Configuration
 public class WebSecurityConfig {
 
+  private static final String[] SWAGGER = {
+          "/v2/api-docs/**", "/swagger-resources", "/swagger-resources/**","/configuration/ui",
+          "/configuration/security","/swagger-ui.html", "/webjars/**",// -- Swagger UI v3 (OpenAPI)
+          "/v3/api-docs/**","/swagger-ui/**", };
+
     @Autowired
     private AuthenticationEntryPointImpl authenticationEntryPoint;
-
-    private static  final String[]  AUTH_WHITLIST ={
-        "/auth/**"
-    };
-
 
     @Bean
     public AuthenticationJwtFilter authenticationJwtFilter(){
@@ -54,7 +54,7 @@ public class WebSecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeHttpRequests()
-            .requestMatchers(AUTH_WHITLIST).permitAll()
+            .requestMatchers(SWAGGER).permitAll()
             .anyRequest().authenticated()
             .and()
             .csrf().disable();

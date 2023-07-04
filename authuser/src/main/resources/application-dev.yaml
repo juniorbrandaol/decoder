@@ -56,6 +56,13 @@ ead:
    api:
       url:
          course: 'http://ead-course-service/ead-course'
+   broker:
+      exchange:
+         userEvent: ead.userevent
+         paymentEvent: ead.paymentevent
+      queue:
+         paymentEventQueue:
+            name: ead.paymentevent.ms.authuser
 
 logging:
    level:

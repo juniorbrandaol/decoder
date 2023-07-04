@@ -20,7 +20,10 @@ spring:
            uri: lb://EAD-NOTIFICATION-SERVICE
            predicates:
              - Path=/ead-notification/**
-
+        - id: payment-service
+          uri: lb://EAD-PAYMENT-SERVICE
+          predicates:
+            - Path=/ead-payment/**
   #colorir mensagens no terminal windows
   output:
     ansi:

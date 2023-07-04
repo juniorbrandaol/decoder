@@ -53,7 +53,7 @@ public class WebSecurityConfig {
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .authorizeRequests()
+            .authorizeHttpRequests()
             .requestMatchers(SWAGGER).permitAll()
             .anyRequest().authenticated()
             .and()

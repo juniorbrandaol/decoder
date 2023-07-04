@@ -48,7 +48,7 @@ public class WebSecurityConfig {
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .authorizeRequests()
+            .authorizeHttpRequests()
             .anyRequest().authenticated()
             .and()
             .csrf().disable();

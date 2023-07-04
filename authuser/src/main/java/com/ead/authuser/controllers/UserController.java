@@ -50,15 +50,15 @@ public class UserController {
         Page<UserModel> userModelPage = userService.findAll(spec,pageable);
         if(!userModelPage.isEmpty()){
             for (UserModel user:userModelPage.toList()){
-                user.add(linkTo(methodOn(UserController.class).getUser(user.getUserId())).withSelfRel());
+                user.add(linkTo(methodOn(UserController.class).getOneUser(user.getUserId())).withSelfRel());
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(userModelPage);
     }
 
-    @PreAuthorize("hasAnyRole('STUDENT')")
+    @PreAuthorize("hasAnyRole('USER')")
     @GetMapping("/{userId}")
-    public ResponseEntity<Object> getUser(@PathVariable UUID userId ){
+    public ResponseEntity<Object> getOneUser(@PathVariable UUID userId ){
 
         UUID currentUserId =  authenticationCurrentUserService.getCurrentUser().getUserId();
         if(currentUserId.equals(userId)) {

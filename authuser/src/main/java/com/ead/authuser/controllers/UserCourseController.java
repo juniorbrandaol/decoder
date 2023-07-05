@@ -32,7 +32,7 @@ public class UserCourseController {
     @Autowired
     private UserService userService;
 
-  @PreAuthorize("hasAnyRole('STUDENT')")
+    @PreAuthorize("hasAnyRole('STUDENT')")
     @GetMapping("users/{userId}/courses")
     public ResponseEntity<Object> getAllCoursesByUser(
           @PageableDefault(page = 0,size = 10,sort = "courseId", direction = Sort.Direction.ASC) Pageable pageable,
@@ -45,6 +45,8 @@ public class UserCourseController {
         }
        return ResponseEntity.status(HttpStatus.OK).body(userCourseService.getAllCoursesByUser(userId,pageable,token));
     }
+
+
 
 
 }

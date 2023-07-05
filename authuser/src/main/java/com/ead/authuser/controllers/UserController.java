@@ -46,7 +46,7 @@ public class UserController {
             @PageableDefault(page = 0,size = 10,sort = "creationDate", direction = Sort.Direction.DESC)
             Pageable pageable, Authentication authentication
     ){
-        log.info("Authentication {}",authenticationCurrentUserService.getCurrentUser());
+
         Page<UserModel> userModelPage = userService.findAll(spec,pageable);
         if(!userModelPage.isEmpty()){
             for (UserModel user:userModelPage.toList()){

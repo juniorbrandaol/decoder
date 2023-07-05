@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService {
         return  userModel;
     }
 
+
     @Override
     public UserModel updatePassword(UserModel userModel) {
         return  save(userModel);
